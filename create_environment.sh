@@ -70,21 +70,21 @@ echo '
 
 # Function to read submissions file and output students who have not submitted
 function check_submissions {
-    local submissions_file=$1
-    echo "Checking submissions in $submissions_file"
+    local submissions_file=$1
+    echo "Checking submissions in $submissions_file"
 
-    # Skip the header and iterate through the lines
-    while IFS=, read -r student assignment status; do
-        # Remove leading and trailing whitespace
-        student=$(echo "$student" | xargs)
-        assignment=$(echo "$assignment" | xargs)
-        status=$(echo "$status" | xargs)
+    # Skip the header and iterate through the lines
+    while IFS=, read -r student assignment status; do
+        # Remove leading and trailing whitespace
+        student=$(echo "$student" | xargs)
+        assignment=$(echo "$assignment" | xargs)
+        status=$(echo "$status" | xargs)
 
-        # Check if assignment matches and status is 'not submitted'
-        if [[ "$assignment" == "$ASSIGNMENT" && "$status" == "not submitted" ]]; then
-            echo "Reminder: $student has not submitted the $ASSIGNMENT assignment!"
-        fi
-    done < <(tail -n +2 "$submissions_file") # Skip the header
+        # Check if assignment matches and status is 'not submitted'
+        if [[ "$assignment" == "$ASSIGNMENT" && "$status" == "not submitted" ]]; then
+            echo "Reminder: $student has not submitted the $ASSIGNMENT assignment!"
+        fi
+    done < <(tail -n +2 "$submissions_file") # Skip the header
 }
 ' >> $dir/modules/functions.sh
 
@@ -117,9 +117,8 @@ EOL
 cat << 'EOL' > "$dir/startup.sh"
 #!/bin/bash
 # Startup script for Submission Reminder App
-
 cd "$(dirname "$0")"
-bash ./app/reminder.sh
+bash app/reminder.sh
 EOL
 
 # Making them executable
